@@ -8,11 +8,11 @@
  * PHP版本的模型和模型表单引擎:git clone https://github.com/peigong/php-model-engine.git --branch 0.0.6 ./libs/php-model-engine-0.0.6
 
 ## 使用说明 ##
- * 由静态常量CACHE_CLASS_NAME定义框架使用的缓存机制实现类。
 
 ## 版本的更新记录 ##
+
 ### 0.0.1 ###
- * 实现基本的框架机制，并实现新浪SAE缓存实现类。
+ * 实现基本的账户系统框架机制。
 
 ## 作者信息 ##
  * 电子邮件：peigong@foxmail.com

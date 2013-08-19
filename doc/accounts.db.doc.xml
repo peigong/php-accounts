@@ -1,0 +1,1580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book version="5.0" xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook">
+  <info>
+    <title>账户系统数据存储设计方案</title>
+
+    <author>
+      <personname><firstname>周</firstname><surname>培公</surname></personname>
+
+      <affiliation>
+        <orgname>http://www.peigong.tk</orgname>
+      </affiliation>
+    </author>
+
+    <pubdate></pubdate>
+  </info>
+
+  <chapter>
+    <title>账户系统数据库</title>
+
+    <section>
+      <title>核心数据表</title>
+
+      <para>账户系统用户注册信息集中管理，存储在DATA_PATH下的core目录下的accounts_core.sqlite数据库中。</para>
+
+      <section>
+        <title>账户系统用户数据表accounts_core_users</title>
+
+        <table>
+          <title>用户数据表accounts_core_users</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">user_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">user_name</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户登录名。</entry>
+              </row>
+
+              <row>
+                <entry align="center">user_password</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户密码。</entry>
+              </row>
+
+              <row>
+                <entry align="center">last_logintime</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户最后登录的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户账户信息更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户账户创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+
+      <section>
+        <title>账户系统用户与扩展属性的关联关系数据表accounts_core_user_attributes</title>
+
+        <table>
+          <title>账户系统用户与扩展属性的关联关系数据表accounts_core_user_attributes</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">model_attribute_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">扩展属性模板与模型数据关联的自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">model_code</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center">20</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">模型的编码。</entry>
+              </row>
+
+              <row>
+                <entry align="center">model_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">模型数据的自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">attribute_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">扩展属性模板的自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">str_vlaue</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">模型的文本属性值。</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+
+      <section>
+        <title>账户映射关系表accounts_core_user_mapping</title>
+
+        <table>
+          <title>账户映射关系表accounts_core_user_mapping</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">mapping_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">账号映射自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">account_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">映射用户编号。</entry>
+              </row>
+
+              <row>
+                <entry align="center">mapping_account_id</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">映射账户ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">mapping_type</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">账户映射的类型。</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+
+      <section>
+        <title>账户系统角色数据表accounts_core_roles</title>
+
+        <table>
+          <title>账户系统角色数据表accounts_core_roles</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">role_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">角色自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">role_code</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center">20</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">角色的编码。</entry>
+              </row>
+
+              <row>
+                <entry align="center">role_name</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center">255</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">角色名称。</entry>
+              </row>
+
+              <row>
+                <entry align="center">role_description</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center">255</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">角色描述。</entry>
+              </row>
+
+              <row>
+                <entry align="center">category_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">角色类别的自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+
+      <section>
+        <title>账户系统用户和角色的关联数据表accounts_core_user_roles</title>
+
+        <table>
+          <title>账户系统用户和角色的关联数据表accounts_core_user_roles</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">user_role_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户和角色关联数据的自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">user_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">role_id</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">角色ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+
+      <section>
+        <title>账户系统许可数据表accounts_core_permissions</title>
+
+        <table>
+          <title>账户系统许可数据表accounts_core_permissions</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">permission_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">许可自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">permission_code</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center">20</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">许可的编码。</entry>
+              </row>
+
+              <row>
+                <entry align="center">permission_name</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center">255</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">许可名称。</entry>
+              </row>
+
+              <row>
+                <entry align="center">permission_description</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center">255</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">许可描述。</entry>
+              </row>
+
+              <row>
+                <entry align="center">category_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">许可类别的自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+
+      <section>
+        <title>账户系统角色和许可的关联数据表accounts_core_role_permissions</title>
+
+        <table>
+          <title>账户系统用户和角色的关联数据表accounts_core_user_roles</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">role_permission_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户和角色关联数据的自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">role_id</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">角色ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">permission_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">许可ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+
+      <section>
+        <title>用户偏好首选项的数据定义表accounts_core_user_preferences</title>
+
+        <table>
+          <title>用户偏好首选项的数据定义表accounts_core_user_preferences</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">preference_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">首先项自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">preference_key</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">首选项的键。</entry>
+              </row>
+
+              <row>
+                <entry align="center">preference_name</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">首选项的名称。</entry>
+              </row>
+
+              <row>
+                <entry align="center">preference_category</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">首先项的类别编号</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+
+      <section>
+        <title>用户偏好首选项类别的数据定义表accounts_core_user_preference_categories</title>
+
+        <table>
+          <title>用户偏好首选项类别的数据定义表accounts_core_user_preference_categories</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">category_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户首选项类别的自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">category_code</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户首选项的类别的编码。</entry>
+              </row>
+
+              <row>
+                <entry align="center">category_name</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户首选项的类别名称。</entry>
+              </row>
+
+              <row>
+                <entry align="center">parent_code</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户首选项的类别父编码。</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+    </section>
+
+    <section>
+      <title>字典数据表</title>
+
+      <para>账户系统字典数据表集中管理，存储在DATA_PATH的dict目录下的accounts_dict.sqlite数据库中。</para>
+
+      <section>
+        <title>账号映射类型表accounts_dict_user_mapping_types</title>
+
+        <table>
+          <title>账号映射类型表accounts_dict_user_mapping_types</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">type_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">账号映射类型自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">type_code</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">账号映射类型的编码。</entry>
+              </row>
+
+              <row>
+                <entry align="center">type_name</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">账号映射类型的名称。</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+
+      <section>
+        <title>用户首选项类型数据表accounts_dict_user_preference_types</title>
+
+        <table>
+          <title>用户首选项类型数据表accounts_dict_user_preference_types</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">type_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户首选项类型自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">type_code</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户首选项类型的编码。</entry>
+              </row>
+
+              <row>
+                <entry align="center">type_name</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户首选项类型的名称。</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+    </section>
+
+    <section>
+      <title>用户分库数据表</title>
+
+      <para>存储在用户ID目录下的accounts_user.sqlite数据库。</para>
+
+      <section>
+        <title>用户首选项的数据表accounts_user_preferences</title>
+
+        <table>
+          <title>用户首选项的数据表accounts_user_preferences</title>
+
+          <tgroup cols="7">
+            <colspec align="center" />
+
+            <thead>
+              <row>
+                <entry align="center">字段名称</entry>
+
+                <entry align="center">数据类型</entry>
+
+                <entry align="center">数据大小</entry>
+
+                <entry align="center">是否自增</entry>
+
+                <entry align="center">可否可空</entry>
+
+                <entry align="center">默认值</entry>
+
+                <entry align="center">注释</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry align="center">user_preference_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">是</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户首选项的自增ID。</entry>
+              </row>
+
+              <row>
+                <entry align="center">user_id</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">用户编号。</entry>
+              </row>
+
+              <row>
+                <entry align="center">preference_key</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">首先项的键。</entry>
+              </row>
+
+              <row>
+                <entry align="center">preference_value</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">可空</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">首选项的值。</entry>
+              </row>
+
+              <row>
+                <entry align="center">user_preference_type</entry>
+
+                <entry align="center">varchar</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">首选项的类型。</entry>
+              </row>
+
+              <row>
+                <entry align="center">update_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据更新的时间。</entry>
+              </row>
+
+              <row>
+                <entry align="center">create_time</entry>
+
+                <entry align="center">integer</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center">否</entry>
+
+                <entry align="center"></entry>
+
+                <entry align="center">数据创建的时间。</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+    </section>
+  </chapter>
+</book>

@@ -5,7 +5,7 @@
  * PHP版本的IOC框架：git clone https://github.com/peigong/php-ioc.git --branch 0.0.6 ./libs/php-ioc-0.0.6
  * PHP版本的数据库访问框架：git clone https://github.com/peigong/php-db.git --branch 0.0.2 ./libs/php-db-0.0.2
  * PHP网站系统核心基类和接口库：git clone https://github.com/peigong/php-site-core.git --branch 0.0.3 ./libs/php-site-core-0.0.3
- * PHP版本的模型和模型表单引擎:git clone https://github.com/peigong/php-model-engine.git --branch 0.0.6 ./libs/php-model-engine-0.0.6
+ * PHP版本的模型和模型表单引擎:git clone https://github.com/peigong/php-model-engine.git --branch 0.0.7 ./libs/php-model-engine-0.0.7
 
 ## 使用说明 ##
 

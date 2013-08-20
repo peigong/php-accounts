@@ -1,6 +1,6 @@
 <?php
 require_once(ROOT . 'inc/core/d.object.class.php');
-require_once(ROOT . 'inc/modules/accounts/dataaccess/d.accounts.inc.php');
+require_once(AccountsRoot . 'inc/dataaccess/d.accounts.inc.php');
 
 /**
  * 账户系统系统数据层账户映射关系类。
@@ -16,7 +16,7 @@ class DUserMapping extends DObject implements IDUserMapping {
     function  __construct(){
         //parent::__construct();
         $this->table = 'accounts_core_user_mapping'; 
-        $this->sql_init = implode('/', array(ROOT, 'inc', 'modules', 'accounts', 'sql', 'sqlite', 'accounts.core')); 
+        $this->sql_init = implode('/', array(AccountsRoot, 'sql', 'sqlite', 'accounts.core')); 
     }
     
     /**

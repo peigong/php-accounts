@@ -1,0 +1,120 @@
+{strip}{/strip}
+{include file="common/header.tpl.html"}
+<!--
+广告前端系统统一DEMO项目
+当前版本：@MASTERVERSION@
+构建时间：@BUILDDATE@
+@COPYRIGHT@
+-->
+<style type="text/css">
+    .axn_role_permission{ padding-top: 10px; }
+</style>
+<section class="section">
+    <div class="container">
+        <h1>账户系统管理</h1>
+        <!-- 二级导航 -->
+        <ul class="nav nav-tabs">
+            <li><a href="index.php?type=user">账户授权</a></li>
+            <li class="active"><a href="index.php?type=role">角色定义</a></li>
+            <li><a href="index.php?type=permission">许可定义</a></li>
+        </ul>
+        <section class="main_section">
+            <aside class="left span6">
+                <h3 class="title">系统角色列表<span class="model-ctrl"><a id="role_create_handler" title="添加新角色" href="#"><i class="icon-plus"></i></a></span></h3>
+                <div id="roles_container"></div>
+                <h3 class="title">当前角色拥有的许可列表</h3>
+                <div id="role_permissions_container"></div>
+            </aside>
+            <section class="span6">
+                <div class="span6">
+                    <h3 class="title">系统许可列表</h3>
+                    <div id="permissions_container"></div>
+                </div>
+                <div class="axn_role_permission span3">
+                    <button id="allocate_permission" class="btn btn-primary">为选中的角色分配选中的许可</button>
+                    <div id="message_container"></div>
+                </div>
+            </section>
+        </section>
+    </div>
+</section>
+<script type="text/javascript">
+require([
+    'jquery',
+    'model-engine/js/enum', 
+    'model-engine/js/modellist', 
+    'model-engine/js/modelctrllist',
+    'model-engine/js/linkagelist'
+], function($, enu, ml, mcl, ll){
+    var ModelType = enu.ModelType,
+        ModelList = ml.ModelList,
+        ModelCtrlList = mcl.ModelCtrlList,
+        LinkageList = ll.LinkageList;
+    var form_options = {
+        'dynamic_fetch_service': '/modules/model-engine/svr/model_form_fetch.php',
+        'upload_service': '/modules/model-engine/svr/file_upload.php'
+    };
+    var roles = new ModelCtrlList("#roles_container", 'role', {
+            'value': 'role_id', 
+            'text': '[{ role_code }]{ role_name }',
+            'name': 'role_name', 
+            'service' : './svr/model_list_fetch.php',
+        
+            'form': form_options,
+
+            'add': {
+                'handler': '#role_create_handler', 
+                'form_name': 'frm_acc_role_create',
+                'service': '/modules/model-engine/svr/model_form_save.php'
+            },
+
+            'edit': {
+                'key': 'role_id',
+                'form_name': 'frm_acc_role_update',
+                'service': '/modules/model-engine/svr/model_form_save.php'
+            },
+
+            'delete': {
+                'service': './svr/model_delete.php',
+                'options' : { 'model': 'role', 'id': '{ role_id }' }             
+            }
+        } ),
+        role_permissions = new ModelCtrlList("#role_permissions_container", 'role_permission', { 
+            'value': 'permission_id', 
+            'text': '[{ permission_code }]{ permission_name }',
+            'service' : './svr/model_list_fetch.php',
+
+            'delete': {
+                'service': './svr/relationship_delete.php',
+                'options' : { 'type': 'role_permission', 'master': '{ role_id }', 'slave': '{ permission_id }' }             
+            }
+        } ),
+        permissions = new ModelList("#permissions_container", 'permission', { 
+            'value': 'permission_id', 
+            'text': '[{ permission_code }]{ permission_name }',
+            'service' : './svr/model_list_fetch.php'
+        } );
+        role_permission_linkage = new LinkageList(roles, role_permissions);
+    role_permission_linkage.load();
+    permissions.load();
+
+    $("#allocate_permission").click(function(){
+        var role = roles.selectedItem,
+            permission = permissions.selectedItem,
+            options = {
+                'role': role['role_id'],
+                'permission': permission['permission_id']
+            };
+        $.post('./svr/allocate_permission.php', options, function(data){
+            var container = $("#message_container");
+            if (data * 1) {
+                role_permissions.load();
+                container.html("成功的为角色（" + role['role_name'] + "）分配了许可（" + permission['permission_name'] + "）！");
+            }else{
+                container.html("许可分配没有成功！");
+            };
+        });
+    });
+} );
+</script>
+{include file="common/footer.tpl.html"}

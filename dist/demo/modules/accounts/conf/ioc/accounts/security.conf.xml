@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.peigong.tk/ioc/config">
+    <!-- 系统安全类配置定义 -->
+    <bean id="security.principal" class="SitePrincipal" path="inc/security/principal/siteprincipal.class.php">
+        <properties>
+            <property name="identity" ref="accounts.security.principal.identity" />
+            <property name="authorization" ref="accounts.security.principal.authorizationprovider" />
+        </properties>
+    </bean>
+    <bean id="accounts.security.principal.identity" class="SiteIdentity" path="inc/security/principal/siteidentity.class.php">
+        <properties>
+            <property name="user" ref="accounts.business.user" />
+        </properties>
+    </bean>
+    <bean id="accounts.security.principal.authorizationprovider" class="SiteAuthorizationProvider" path="inc/security/principal/provider/siteauthorizationprovider.class.php">
+    </bean>
+</config>
+

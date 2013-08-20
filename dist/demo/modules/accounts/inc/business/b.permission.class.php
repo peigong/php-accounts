@@ -1,6 +1,6 @@
 <?php
 require_once(ROOT . 'inc/core/b.object.class.php');
-require_once(ROOT . 'inc/modules/accounts/business/b.accounts.inc.php');
+require_once(AccountsRoot . 'inc/business/b.accounts.inc.php');
 
 /**
  * 账户系统业务层许可类。

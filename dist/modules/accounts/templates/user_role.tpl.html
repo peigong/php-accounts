@@ -1,0 +1,91 @@
+{strip}{/strip}
+{include file="common/header.tpl.html"}
+<!--
+广告前端系统统一DEMO项目
+当前版本：@MASTERVERSION@
+构建时间：@BUILDDATE@
+@COPYRIGHT@
+-->
+<style type="text/css">
+</style>
+<section class="section">
+    <div class="container">
+        <h1>账户系统管理</h1>
+        <!-- 二级导航 -->
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="index.php?type=user">账户授权</a></li>
+            <li><a href="index.php?type=role">角色定义</a></li>
+            <li><a href="index.php?type=permission">许可定义</a></li>
+       </ul>        
+        <section class="main_section">
+            <aside class="left span4">
+                <h3 class="title">系统账户列表</h3>
+                <div id="users_container"></div>
+            </aside>
+            <section class="span4">
+                <h3 class="title">当前账户拥有的角色列表</h3>
+                <div id="user_roles_container"></div>
+                <h3 class="title">系统中的角色列表</h3>
+                <div id="roles_container"></div>
+                <button id="allocate_role" class="btn btn-primary">为选中的用户分配选中的角色</button>
+                <div id="message_container"></div>
+            </section>
+        </section>
+    </div>
+</section>
+<script type="text/javascript">
+require([
+    'jquery',
+    'model-engine/js/enum', 
+    'model-engine/js/modellist', 
+    'model-engine/js/modelctrllist',
+    'model-engine/js/linkagelist'
+], function($, enu, ml, mcl, ll){
+    var ModelType = enu.ModelType,
+        ModelList = ml.ModelList,
+        ModelCtrlList = mcl.ModelCtrlList,
+        LinkageList = ll.LinkageList;
+    var users = new ModelList("#users_container", 'user', {
+                'value': 'user_id', 
+                'text': '[{ user_name }]{ job_number }:{ full_name }',
+                'service' : './svr/model_list_fetch.php'
+            } ),
+        user_roles = new ModelCtrlList("#user_roles_container", 'user_role', { 
+                'value': 'role_id', 
+                'text': '[{ role_code }]{ role_name }',
+                'service' : './svr/model_list_fetch.php',
+
+                'delete': {
+                    'service': './svr/relationship_delete.php',
+                    'options' : { 'type': 'user_role', 'master': '{ user_id }', 'slave': '{ role_id }' }             
+                }
+            } ),
+        roles = new ModelList("#roles_container", 'role', { 
+                'value': 'role_id', 
+                'text': '[{ role_code }]{ role_name }',
+                'service' : './svr/model_list_fetch.php'
+            } ),
+        user_role_linkage = new LinkageList(users, user_roles);
+    user_role_linkage.load();
+    roles.load();
+
+    $("#allocate_role").click(function(){
+        var user = users.selectedItem,
+            role = roles.selectedItem,
+            options = {
+                'user': user['user_id'],
+                'role': role['role_id']
+            };
+        $.post('./svr/allocate_role.php', options, function(data){
+            var container = $("#message_container");
+            if (data * 1) {
+                user_roles.load();
+                container.html("成功的为用户（" + user['user_name'] + "）分配了角色（" + role['role_name'] + "）！");
+            }else{
+                container.html("角色分配没有成功！");
+            };
+        });
+    });
+} );
+</script>
+{include file="common/footer.tpl.html"}

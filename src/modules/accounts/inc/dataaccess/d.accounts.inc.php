@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT . 'inc/modules/accounts/accounts.inc.php');
+require_once(AccountsRoot . 'inc/accounts.inc.php');
 
 /**
  * 账户系统系统数据层账户映射关系类的接口。

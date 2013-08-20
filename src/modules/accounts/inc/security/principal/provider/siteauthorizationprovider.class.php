@@ -1,6 +1,9 @@
 <?php
-require_once(ROOT . 'site.authorization.conf.php');
-require_once(ROOT . 'inc/modules/accounts/security/principal/siteprincipal.inc.php');
+require_once(AccountsRoot . 'inc/security/principal/siteprincipal.inc.php');
+$site_authorization_conf = ROOT . 'site.authorization.conf.php';
+if (file_exists($site_authorization_conf)) {
+    require_once($site_authorization_conf);
+}
 
 /**
 * 网站项目的验证服务提供对象。
@@ -27,29 +30,30 @@ class SiteAuthorizationProvider implements IAuthorizationProvider{
         print_r($_SERVER['SCRIPT_NAME']);
         print_r($_SERVER['PHP_SELF']);*/
         $current_path = $_SERVER['PHP_SELF'];
-        
-        $config = get_authorization_config();
-        $auth_url = $config['gateway']['url'];
-        $auth_param = $config['gateway']['param'];
-        $directories = $config['directories'];
+        if (function_exists(get_authorization_config)) {
+            $config = get_authorization_config();
+            $auth_url = $config['gateway']['url'];
+            $auth_param = $config['gateway']['param'];
+            $directories = $config['directories'];
 
-        /*默认为允许访问*/
-        $allow = true;
-        $allow_permissions = $this->getCurrentRequiredPermissions($current_path, array(), $directories);
-        if (count($allow_permissions) > 0) {
-            $allow = false;
-            foreach ($permissions as $idx => $permission) {
-                if (in_array($permission, $allow_permissions)) {
-                    $allow = true;
+            /*默认为允许访问*/
+            $allow = true;
+            $allow_permissions = $this->getCurrentRequiredPermissions($current_path, array(), $directories);
+            if (count($allow_permissions) > 0) {
+                $allow = false;
+                foreach ($permissions as $idx => $permission) {
+                    if (in_array($permission, $allow_permissions)) {
+                        $allow = true;
+                    }
                 }
             }
+            if (!$allow) {
+                $url = "$auth_url?$auth_param=" . urlencode($current_path);
+                Header("Location: $url"); 
+                exit();
+            }
         }
-        if (!$allow) {
-            $url = "$auth_url?$auth_param=" . urlencode($current_path);
-            Header("Location: $url"); 
-            exit();
         }
-	}
     /*- IAuthorizationProvider 接口实现 END -*/
     
     /*- 私有方法 START -*/

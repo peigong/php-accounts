@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.peigong.tk/ioc/config">
+    <!-- 账户系统业务模型类配置定义 -->
+    <!-- 业务层模型类配置 -->
+    <bean id="accounts.business.user" class="BUser" path="inc/business/b.user.class.php"  parent="accounts.core.b.object">
+        <properties>
+            <property name="dao" ref="accounts.dataaccess.user" />
+            <property name="manager" ref="modelengine.business.model" />
+            <property name="mark" ref="accounts.business.mark" />
+            <property name="userrole" ref="accounts.business.userrole" />
+            <property name="rolepermission" ref="accounts.business.rolepermission" />
+        </properties>
+    </bean>
+    <bean id="accounts.business.mark" class="BIPCookieMark" path="inc/business/mark/b.ipcookiemark.class.php">
+        <properties>
+            <property name="mapping" ref="accounts.dataaccess.usermapping" />
+        </properties>
+    </bean>
+    <bean id="accounts.business.usermapping" class="BUserMapping" path="inc/business/b.usermapping.class.php">
+        <properties>
+            <property name="dao" ref="accounts.dataaccess.usermapping" />
+            <property name="manager" ref="modelengine.business.model" />
+        </properties>
+    </bean>
+    <bean id="accounts.business.userrole" class="BUserRole" path="inc/business/b.userrole.class.php">
+        <properties>
+            <property name="dao" ref="accounts.dataaccess.userrole" />
+            <property name="manager" ref="modelengine.business.model" />
+        </properties>
+    </bean>
+    <bean id="accounts.business.role" class="BRole" path="inc/business/b.role.class.php">
+        <properties>
+            <property name="dao" ref="accounts.dataaccess.role" />
+            <property name="manager" ref="modelengine.business.model" />
+        </properties>
+    </bean>
+    <bean id="accounts.business.permission" class="BPermission" path="inc/business/b.permission.class.php">
+        <properties>
+            <property name="dao" ref="accounts.dataaccess.permission" />
+            <property name="manager" ref="modelengine.business.model" />
+        </properties>
+    </bean>
+    <bean id="accounts.business.rolepermission" class="BRolePermission" path="inc/business/b.rolepermission.class.php">
+        <properties>
+            <property name="dao" ref="accounts.dataaccess.rolepermission" />
+            <property name="manager" ref="modelengine.business.model" />
+        </properties>
+    </bean>
+</config>
+

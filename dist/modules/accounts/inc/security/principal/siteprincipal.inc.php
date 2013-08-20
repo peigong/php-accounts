@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT . 'inc/modules/accounts/accounts.inc.php');
+require_once(AccountsRoot . 'inc/accounts.inc.php');
 require_once(ROOT . 'inc/core/security/principal/principal.inc.php');
 
 /*

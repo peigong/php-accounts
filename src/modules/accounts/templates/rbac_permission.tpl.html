@@ -1,0 +1,67 @@
+{strip}{/strip}
+{include file="common/header.tpl.html"}
+<!--
+广告前端系统统一DEMO项目
+当前版本：@MASTERVERSION@
+构建时间：@BUILDDATE@
+@COPYRIGHT@
+-->
+<style type="text/css">
+</style>
+<section class="section">
+    <div class="container">
+        <h1>账户系统管理</h1>
+        <!-- 二级导航 -->
+        <ul class="nav nav-tabs">
+            <li><a href="index.php?type=user">账户授权</a></li>
+            <li><a href="index.php?type=role">角色定义</a></li>
+            <li class="active"><a href="index.php?type=permission">许可定义</a></li>
+        </ul>
+        <section>
+            <section class="left span8">
+                <h3 class="title">系统许可列表<span class="model-ctrl"><a id="permission_create_handler" title="添加新许可" href="#"><i class="icon-plus"></i></a></span></h3>
+                <div id="permissions_container"></div>
+            </section>
+        </section>
+    </div>
+</section>
+<script type="text/javascript">
+require([
+    'model-engine/js/enum', 
+    'model-engine/js/modelctrllist'
+], function(enu, mcl){
+    var form_options = {
+        'dynamic_fetch_service': '/modules/model-engine/svr/model_form_fetch.php',
+        'upload_service': '/modules/model-engine/svr/file_upload.php'
+    };
+    var ModelType = enu.ModelType,
+        ModelCtrlList = mcl.ModelCtrlList,
+        permissions = new ModelCtrlList("#permissions_container", 'permission', { 
+            'value': 'permission_id', 
+            'text': '[{ permission_code }]{ permission_name }',
+            'name': 'permission_name', 
+            'service' : './svr/model_list_fetch.php',
+            
+            'form': form_options,
+
+            'add': {
+                'handler': '#permission_create_handler', 
+                'form_name': 'frm_acc_permission_create',
+                'service': '/modules/model-engine/svr/model_form_save.php',
+            },
+
+            'edit': {
+                'key': 'permission_id',
+                'form_name': 'frm_acc_permission_update',
+                'service': '/modules/model-engine/svr/model_form_save.php',
+            },
+
+            'delete': {
+                'service': './svr/model_delete.php',
+                'options' : { 'model': 'permission', 'id': '{ permission_id }' }             
+            }
+        } );
+    permissions.load();
+} );
+</script>
+{include file="common/footer.tpl.html"}

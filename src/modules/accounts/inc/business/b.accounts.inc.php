@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT . 'inc/modules/accounts/accounts.inc.php');
+require_once(AccountsRoot . 'inc/accounts.inc.php');
 
 /**
  * 账户系统业务层标志类的接口。

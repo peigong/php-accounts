@@ -1,6 +1,6 @@
 <?php
 require_once(ROOT . 'inc/core/ioc/applicationcontext.inc.php');
-require_once(ROOT . 'model-engine/inc/modules/modelengine.inc.php');
+require_once(ModelEngineRoot . 'inc/modelengine.inc.php');
 
 /**
  * 遵循RBAC96标准，实现RBAC0层次的基本模型。

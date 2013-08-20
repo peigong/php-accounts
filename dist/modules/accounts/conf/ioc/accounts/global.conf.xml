@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.peigong.tk/ioc/config">
+    <!-- 全局使用类配置定义 -->
+    <bean id="accounts.global.db.route" class="AccountsSQLiteRoute" path="inc/db/accountssqliteroute.class.php" />
+    <bean id="accounts.core.b.object" abstract="true" />
+    <bean id="accounts.core.d.object" abstract="true">
+        <properties>
+            <property name="dao" ref="accounts.global.dao" />
+            <property name="route" ref="accounts.global.db.route" />
+        </properties>
+    </bean>
+    <bean id="accounts.pages.adminpage" class="AccountsAdminPage" path="inc/accountsadminpage.class.php" />
+</config>
+

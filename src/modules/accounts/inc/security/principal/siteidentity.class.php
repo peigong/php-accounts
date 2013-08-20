@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT . 'inc/modules/accounts/security/principal/siteprincipal.inc.php');
+require_once(AccountsRoot . 'inc/security/principal/siteprincipal.inc.php');
 
 /*
 * 网站项目的上下文用户的标识对象。

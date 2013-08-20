@@ -6,10 +6,6 @@ $global_config_path = realpath(dirname(__FILE__) . '/../../config.inc.php');
 if (file_exists($global_config_path)) {
 	require_once($global_config_path);
 }
-$global_config_path = realpath(dirname(__FILE__) . '/../config.inc.php');
-if (file_exists($global_config_path)) {
-	require_once($global_config_path);
-}
 /*- WEB系统根目录 -*/
 if (!defined('ROOT')) {
 	exit();
@@ -22,6 +18,9 @@ if (!defined('AccountsRoot')) {
 
 if (!defined('AccountsData')) {
 	define('AccountsData', ROOT . '../../demo.data/');
+}
+if(!defined('ModelEngineRoot')){
+	define('ModelEngineRoot', realpath(AccountsRoot . '/../model-engine') . '/');	
 }
 
 if (!isset($context)) {

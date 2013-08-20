@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.peigong.tk/ioc/config">
+    <!-- 账户系统数据访问类配置定义 -->
+    <bean id="accounts.dataaccess.user" class="DUser" path="inc/dataaccess/d.user.class.php" parent="accounts.core.d.object" />
+    <bean id="accounts.dataaccess.usermapping" class="DUserMapping" path="inc/dataaccess/d.usermapping.class.php" parent="accounts.core.d.object" />
+    <bean id="accounts.dataaccess.role" class="DRole" path="inc/dataaccess/d.role.class.php" parent="accounts.core.d.object" />
+    <bean id="accounts.dataaccess.userrole" class="DUserRole" path="inc/dataaccess/d.userrole.class.php" parent="accounts.core.d.object" />
+    <bean id="accounts.dataaccess.permission" class="DPermission" path="inc/dataaccess/d.permission.class.php" parent="accounts.core.d.object" />
+    <bean id="accounts.dataaccess.rolepermission" class="DRolePermission" path="inc/dataaccess/d.rolepermission.class.php" parent="accounts.core.d.object" />
+</config>
+

@@ -18,7 +18,11 @@ module.exports = function(grunt) {
     copy:{
       main:{
         files: [
-          {expand: true, 'cwd': 'src/inc', src: ['**'], dest: 'dist/inc'}
+          {expand: true, "cwd": "src/demo", src: ["**"], dest: "dist/demo"},
+          {expand: true, 'cwd': 'src/modules/accounts', src: ['**'], dest: 'dist/modules/accounts'},
+          {expand: true, 'cwd': 'src/modules/accounts', src: ['**'], dest: 'dist/demo/modules/accounts'},
+          {expand: true, cwd: "libs/php-model-engine-0.0.7/dist/dependencies", src: ["**"], dest: "dist/demo"},
+          {expand: true, cwd: "libs/php-model-engine-0.0.7/dist/model-engine", src: ["**"], dest: "dist/demo/modules/model-engine"},
         ]
       }
     }

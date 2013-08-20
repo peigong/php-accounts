@@ -1,7 +1,7 @@
 # PHP版本的账户系统框架 #
 
 ## 项目依赖 ##
- * PHP版本的模型和模型表单引擎:git clone https://github.com/peigong/php-model-engine.git --branch 0.0.7 ./libs/php-model-engine-0.0.7
+ * PHP版本的模型和模型表单引擎：git clone https://github.com/peigong/php-model-engine.git --branch 0.0.7 ./libs/php-model-engine-0.0.7
 
 ## 使用说明 ##
 

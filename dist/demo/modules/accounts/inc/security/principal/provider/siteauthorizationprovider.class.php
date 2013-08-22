@@ -1,6 +1,6 @@
 <?php
-require_once(AccountsRoot . 'inc/security/principal/siteprincipal.inc.php');
-$site_authorization_conf = ROOT . 'site.authorization.conf.php';
+require_once(ROOT . 'inc/core/webpage.inc.php');
+$site_authorization_conf = ROOT . 'site.authorization.config.inc.php';
 if (file_exists($site_authorization_conf)) {
     require_once($site_authorization_conf);
 }

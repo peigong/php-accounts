@@ -23,15 +23,4 @@ interface ISitePrincipal extends IInjectEnable, IPrincipal{
 	*/
 	function hasPermission($permission);
 }
-
-/**
-* 提供安全验证服务的对象接口。
-*/
-interface IAuthorizationProvider extends IInjectEnable{
-	/**
-	* 进行最初的拦截，进行认证。
-	* @param $permissions {Array} 当前用户所拥有的许可列表。
-	*/
-	function intercept($permissions);
-}
 ?>

@@ -11,7 +11,7 @@ function get_authorization_config(){
         /*验证网关的配置*/
         'gateway' => array(
             /*验证网关的URL地址*/
-            'url' => '/ucenter/login.php', 
+            'url' => '', 
             /*跳转到网关时携带当前URL地址的参数名*/
             'param' => 'r'
         ),

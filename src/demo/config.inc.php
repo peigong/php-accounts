@@ -10,9 +10,9 @@ define('SMARTY_TEMPLATES', ROOT . 'templates/');
 define('SMARTY_CACHE', ROOT . 'cache/smarty/');
 
 /*- 数据库存储文件目录 -*/
+define('ModelEngineRoot', ROOT . 'modules/model-engine/');	
 define('ModelEngineData', ROOT . 'data/');
 define('AccountsData', ROOT . 'data/');
-define('ModelEngineRoot', ROOT . 'modules/model-engine/');	
 
 /*- 打开输出缓冲区 -*/
 ob_start();

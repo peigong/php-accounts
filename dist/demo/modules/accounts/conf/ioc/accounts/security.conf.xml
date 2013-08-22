@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns="http://www.peigong.tk/ioc/config">
-    <!-- 系统安全类配置定义 -->
+    <!-- HttpContext类中写死的配置ID -->
     <bean id="security.principal" class="SitePrincipal" path="inc/security/principal/siteprincipal.class.php">
         <properties>
             <property name="identity" ref="accounts.security.principal.identity" />
-            <property name="authorization" ref="accounts.security.principal.authorizationprovider" />
         </properties>
     </bean>
+    <!-- WebPage基类中写死的配置ID -->
+    <bean id="site.menu.provider" class="SiteMenuProvider" path="inc/security/principal/provider/sitemenuprovider.class.php" />
+    <bean id="security.authorization.provider" class="SiteAuthorizationProvider" path="inc/security/principal/provider/siteauthorizationprovider.class.php" />
+    <!-- 账户系统用户标识 -->
     <bean id="accounts.security.principal.identity" class="SiteIdentity" path="inc/security/principal/siteidentity.class.php">
         <properties>
             <property name="user" ref="accounts.business.user" />
         </properties>
-    </bean>
-    <bean id="accounts.security.principal.authorizationprovider" class="SiteAuthorizationProvider" path="inc/security/principal/provider/siteauthorizationprovider.class.php">
     </bean>
 </config>
 

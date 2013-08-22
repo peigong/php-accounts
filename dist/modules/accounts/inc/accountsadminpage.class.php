@@ -31,6 +31,7 @@ class AccountsAdminPage extends WebPage implements IInjectEnable {
             $title = $template['title'];
             $temp = $template['template'];
             $this->setTitle($title);
+            $this->setMenuActive('accounts-sub', $this->type);
             $this->smarty->addTemplateDir(AccountsRoot . 'templates');
             $this->display($temp);
         }

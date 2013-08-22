@@ -7,7 +7,6 @@ require_once(AccountsRoot . 'inc/security/principal/siteprincipal.inc.php');
 class SitePrincipal implements ISitePrincipal{
 	private $identity = null;
 	private $user = null;
-	private $authorization = null;
 
     /*- ISitePrincipal 接口实现 START -*/
     /*- IInjectEnable 接口实现 START -*/
@@ -26,23 +25,20 @@ class SitePrincipal implements ISitePrincipal{
 	public function getIdentity(){
 		return $this->identity;
 	}
-
 	/**
-	* 进行最初的拦截，进行认证。
+	* 获取当前用户的权限列表。
 	*/
-	public function intercept(){
-		if ($this->authorization) {
-			if ($this->user) {
-				$user = $this->user;
-			}else{
-				$user = $this->identity->getCurrentUser();			
-			}
-			$permissions = array();
-			if (array_key_exists('permissions', $user)) {
-				$permissions = $user['permissions'];
-			}
-			$this->authorization->intercept($permissions);
+	public function getPermissions(){
+		if ($this->user) {
+			$user = $this->user;
+		}else{
+			$user = $this->identity->getCurrentUser();			
 		}
+		$permissions = array();
+		if (array_key_exists('permissions', $user)) {
+			$permissions = $user['permissions'];
+		}
+		return $permissions;
 	}
 
 	/**

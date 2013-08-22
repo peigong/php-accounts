@@ -52,26 +52,26 @@ class SiteMenuProvider implements IMenuProvider{
                         }
                         if ($allow) {
                             $config[$k1][$k2]['display'] = true;
-                            /*处理激活状态*/
-                            if (count($settings) > 0 
-                                && array_key_exists($k1, $settings)
-                                && $settings[$k1]
-                                && count($settings[$k1]) > 0 
-                                && array_key_exists($k2, $settings[$k1])
-                                && $settings[$k1][$k2]
-                                && count($settings[$k1][$k2]) > 0 
-                                && array_key_exists('active', $settings[$k1][$k2])
-                                && $settings[$k1][$k2]['active']
-                                ) {
-                                    $config[$k1][$k2]['active'] = 'active';
-                                    if (count($item['top']) > 0) {
-                                        foreach ($item['top'] as $idx => $top) {
-                                            $config[$top['menu']][$top['item']]['active'] = 'active';
-                                        }
-                                    }
-                            }
                         }else{
                             $config[$k1][$k2]['display'] = false;
+                        }
+                        /*处理激活状态*/
+                        if (count($settings) > 0 
+                            && array_key_exists($k1, $settings)
+                            && $settings[$k1]
+                            && count($settings[$k1]) > 0 
+                            && array_key_exists($k2, $settings[$k1])
+                            && $settings[$k1][$k2]
+                            && count($settings[$k1][$k2]) > 0 
+                            && array_key_exists('active', $settings[$k1][$k2])
+                            && $settings[$k1][$k2]['active']
+                            ) {
+                                $config[$k1][$k2]['active'] = 'active';
+                                if (count($item['top']) > 0) {
+                                    foreach ($item['top'] as $idx => $top) {
+                                        $config[$top['menu']][$top['item']]['active'] = 'active';
+                                    }
+                                }
                         }
                     }
                 }

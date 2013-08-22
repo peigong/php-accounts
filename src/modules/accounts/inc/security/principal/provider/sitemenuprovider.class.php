@@ -75,6 +75,7 @@ class SiteMenuProvider implements IMenuProvider{
                         }
                     }
                 }
+                $settings = $config;
             }
         }
         return $settings;

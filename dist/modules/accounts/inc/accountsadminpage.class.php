@@ -33,6 +33,12 @@ class AccountsAdminPage extends WebPage implements IInjectEnable {
             $this->setTitle($title);
             $this->setMenuActive('accounts-sub', $this->type);
             $this->smarty->addTemplateDir(AccountsRoot . 'templates');
+            if (defined('STATIC_HOST')) {
+                $this->assign('StaticHost', STATIC_HOST);
+            }
+            if (defined('VirtualModelEngineRoot')) {
+                $this->assign('VirtualModelEngineRoot', VirtualModelEngineRoot);
+            }
             $this->display($temp);
         }
     }

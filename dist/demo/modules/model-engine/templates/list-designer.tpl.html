@@ -1,5 +1,4 @@
 {include file="common/header.tpl.html"}
-<script type="text/javascript" src="../js/config.js"></script>
 <style type="text/css">
 </style>
 <section class="section">
@@ -35,6 +34,8 @@ require([
             'text': 'list_name',
             'name': 'list_name', 
 
+            'form': { 'static_fetch_service': '{$StaticHost}/forms/' + ModelType.SYSTEMLIST },
+
             'add': {
                 'handler': '#systemlist_create_handler', 
                 'form_name': 'frm_model_systemlist_create'
@@ -54,6 +55,8 @@ require([
             'value': 'list_id', 
             'text': 'list_name',
             'name': 'list_name', 
+            
+            'form': { 'static_fetch_service': '{$StaticHost}/forms/' + ModelType.CUSTOMLIST },
 
             'add': {
                 'handler': '#customlist_create_handler', 
@@ -74,6 +77,8 @@ require([
             'value': 'item_id', 
             'text': '[{ item_value }]{ item_text }',
             'name': 'item_text', 
+            
+            'form': { 'static_fetch_service': '{$StaticHost}/forms/' + ModelType.CUSTOMLISTITEM },
 
             'add': {
                 'handler': '#customlistitem_create_handler', 

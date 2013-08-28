@@ -13,9 +13,10 @@
         <h1>账户系统管理</h1>
         <!-- 二级导航 -->
         {include file="menu-accounts-sub.html"}
+        <div id="message_container" class="container"></div>
         <section class="main_section">
             <aside class="left span4">
-                <h3 class="title">系统账户列表</h3>
+                <h3 class="title">系统账户列表<span class="model-ctrl"><a id="user_create_handler" title="添加新用户" href="#"><i class="icon-plus"></i></a></span></h3>
                 <div id="users_container"></div>
             </aside>
             <section class="span4">
@@ -24,7 +25,6 @@
                 <h3 class="title">系统中的角色列表</h3>
                 <div id="roles_container"></div>
                 <button id="allocate_role" class="btn btn-primary">为选中的用户分配选中的角色</button>
-                <div id="message_container"></div>
             </section>
         </section>
     </div>
@@ -41,26 +41,46 @@ require([
         ModelList = ml.ModelList,
         ModelCtrlList = mcl.ModelCtrlList,
         LinkageList = ll.LinkageList;
-    var users = new ModelList("#users_container", 'user', {
-                'value': 'user_id', 
-                'text': '[{ user_name }]{ job_number }:{ full_name }',
-                'service' : './svr/model_list_fetch.php'
-            } ),
-        user_roles = new ModelCtrlList("#user_roles_container", 'user_role', { 
-                'value': 'role_id', 
-                'text': '[{ role_code }]{ role_name }',
-                'service' : './svr/model_list_fetch.php',
+    var users = new ModelCtrlList("#users_container", 'user', {
+            'value': 'user_id', 
+            'text': '[{ user_name }]{ job_number }:{ full_name }',
+            'name': 'user_name', 
+            'service' : './svr/model_list_fetch.php',
 
-                'delete': {
-                    'service': './svr/relationship_delete.php',
-                    'options' : { 'type': 'user_role', 'master': '{ user_id }', 'slave': '{ role_id }' }             
-                }
-            } ),
+            'form': { 'static_fetch_service': '{$StaticHost}/forms/' + 'user' },
+
+            'add': {
+                'handler': '#user_create_handler', 
+                'form_name': 'frm_acc_user_create',
+                'service': './svr/model_form_save.php'
+            },
+
+            'edit': {
+                'key': 'user_id',
+                'form_name': 'frm_acc_user_update',
+                'service': './svr/model_form_save.php'
+            },
+
+            'delete': {
+                'service': './svr/model_delete.php',
+                'options' : { 'model': 'user', 'id': '{ user_id }' }             
+            }
+        } ),
+        user_roles = new ModelCtrlList("#user_roles_container", 'user_role', { 
+            'value': 'role_id', 
+            'text': '[{ role_code }]{ role_name }',
+            'service' : './svr/model_list_fetch.php',
+
+            'delete': {
+                'service': './svr/relationship_delete.php',
+                'options' : { 'type': 'user_role', 'master': '{ user_id }', 'slave': '{ role_id }' }             
+            }
+        } ),
         roles = new ModelList("#roles_container", 'role', { 
-                'value': 'role_id', 
-                'text': '[{ role_code }]{ role_name }',
-                'service' : './svr/model_list_fetch.php'
-            } ),
+            'value': 'role_id', 
+            'text': '[{ role_code }]{ role_name }',
+            'service' : './svr/model_list_fetch.php'
+        } ),
         user_role_linkage = new LinkageList(users, user_roles);
     user_role_linkage.load();
     roles.load();

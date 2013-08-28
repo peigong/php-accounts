@@ -1,10 +1,4 @@
 <?php
-/**
- * 广告前端系统统一DEMO项目
- * 当前版本：@MASTERVERSION@
- * 构建时间：@BUILDDATE@
- * @COPYRIGHT@
- */
 require_once(dirname(__FILE__) . "/../../config.inc.php");
 require_once(ModelEngineRoot . 'inc/modelengine.inc.php');
 
@@ -31,6 +25,12 @@ if((strlen($type) > 0) && array_key_exists($type, $managers)){
     //实现了模型和表单引擎系统的IModelListFetch接口的类
     $manager = $context->getBean($managers[$type]);
     $entities = $manager->fetchModelList($code, $ext);
+    /*密码特殊处理*/
+    if ('user' == $type) {
+        foreach ($entities as $idx => &$entity) {
+            $entity['user_password'] = '';
+        }
+    }
 }
 echo json_encode($entities);
 ?>

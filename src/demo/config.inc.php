@@ -9,8 +9,13 @@ define('SMARTY_PATH', ROOT . 'libs/Smarty_3_1_8/libs/');
 define('SMARTY_TEMPLATES', ROOT . 'templates/');
 define('SMARTY_CACHE', ROOT . 'cache/smarty/');
 
+/*- 静态资源访问配置 -*/
+define('STATIC_PATH', ROOT . 'static');
+define('STATIC_HOST', "http://" . $_SERVER['SERVER_NAME'] . "/static");
+
 /*- 数据库存储文件目录 -*/
 define('ModelEngineRoot', ROOT . 'modules/model-engine/');	
+define('VirtualModelEngineRoot', '/modules/model-engine');	
 define('ModelEngineData', ROOT . 'data/');
 define('AccountsData', ROOT . 'data/');
 

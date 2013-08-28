@@ -14,6 +14,7 @@
         <h1>账户系统管理</h1>
         <!-- 二级导航 -->
         {include file="menu-accounts-sub.html"}
+        <div id="message_container" class="container"></div>
         <section class="main_section">
             <aside class="left span6">
                 <h3 class="title">系统角色列表<span class="model-ctrl"><a id="role_create_handler" title="添加新角色" href="#"><i class="icon-plus"></i></a></span></h3>
@@ -28,7 +29,6 @@
                 </div>
                 <div class="axn_role_permission span3">
                     <button id="allocate_permission" class="btn btn-primary">为选中的角色分配选中的许可</button>
-                    <div id="message_container"></div>
                 </div>
             </section>
         </section>
@@ -46,28 +46,24 @@ require([
         ModelList = ml.ModelList,
         ModelCtrlList = mcl.ModelCtrlList,
         LinkageList = ll.LinkageList;
-    var form_options = {
-        'dynamic_fetch_service': '/modules/model-engine/svr/model_form_fetch.php',
-        'upload_service': '/modules/model-engine/svr/file_upload.php'
-    };
     var roles = new ModelCtrlList("#roles_container", 'role', {
             'value': 'role_id', 
             'text': '[{ role_code }]{ role_name }',
             'name': 'role_name', 
             'service' : './svr/model_list_fetch.php',
         
-            'form': form_options,
+            'form': { 'static_fetch_service': '{$StaticHost}/forms/' + 'role' },
 
             'add': {
                 'handler': '#role_create_handler', 
                 'form_name': 'frm_acc_role_create',
-                'service': '/modules/model-engine/svr/model_form_save.php'
+                'service': '{$VirtualModelEngineRoot}/svr/model_form_save.php'
             },
 
             'edit': {
                 'key': 'role_id',
                 'form_name': 'frm_acc_role_update',
-                'service': '/modules/model-engine/svr/model_form_save.php'
+                'service': '{$VirtualModelEngineRoot}/svr/model_form_save.php'
             },
 
             'delete': {

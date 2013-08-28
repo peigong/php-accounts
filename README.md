@@ -1,7 +1,7 @@
 # PHP版本的账户系统框架 #
 
 ## 项目依赖 ##
- * PHP版本的模型和模型表单引擎：git clone https://github.com/peigong/php-model-engine.git --branch 0.0.8 ./libs/php-model-engine-0.0.8
+ * PHP版本的模型和模型表单引擎：git clone https://github.com/peigong/php-model-engine.git --branch 0.1.0 ./libs/php-model-engine-0.1.0
 
 ## 使用说明 ##
 
@@ -10,6 +10,7 @@
  	* ROOT：整个WEB系统的根目录，用于引用全局的类库。
  	* AccountsData：定义账户系统使用的数据库。
  	* ModelEngineData：定义模型和表单引擎使用的数据库。
+ 	* VirtualModelEngineRoot：定义模型和表单引擎访问的虚拟路径。
  * 在正式的商业系统中使用时，需要在WEB服务器上（如Apache、Ngix），把模型和模型表单引擎的IOC配置目录（conf）设置为禁止外部访问。
  
 
@@ -20,6 +21,10 @@
  * modules/accounts：可移植的账户系统类库。具体使用需参考demo中的php配置。
 
 ## 版本的更新记录 ##
+
+### 0.0.5 ###
+ * 增加了添加和修改用户的功能。
+ * 使用了模型数据定义机制和静态表单配置。
 
 ### 0.0.4 ###
  * 修改了菜单没有显示权限时不设置当前状态的问题。

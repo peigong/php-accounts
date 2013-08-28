@@ -26,10 +26,6 @@ require([
     'model-engine/js/enum', 
     'model-engine/js/modelctrllist'
 ], function(enu, mcl){
-    var form_options = {
-        'dynamic_fetch_service': '/modules/model-engine/svr/model_form_fetch.php',
-        'upload_service': '/modules/model-engine/svr/file_upload.php'
-    };
     var ModelType = enu.ModelType,
         ModelCtrlList = mcl.ModelCtrlList,
         permissions = new ModelCtrlList("#permissions_container", 'permission', { 
@@ -38,18 +34,18 @@ require([
             'name': 'permission_name', 
             'service' : './svr/model_list_fetch.php',
             
-            'form': form_options,
+            'form': { 'static_fetch_service': '{$StaticHost}/forms/' + 'permission' },
 
             'add': {
                 'handler': '#permission_create_handler', 
                 'form_name': 'frm_acc_permission_create',
-                'service': '/modules/model-engine/svr/model_form_save.php',
+                'service': '{$VirtualModelEngineRoot}/svr/model_form_save.php',
             },
 
             'edit': {
                 'key': 'permission_id',
                 'form_name': 'frm_acc_permission_update',
-                'service': '/modules/model-engine/svr/model_form_save.php',
+                'service': '{$VirtualModelEngineRoot}/svr/model_form_save.php',
             },
 
             'delete': {

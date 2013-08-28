@@ -43,6 +43,7 @@ define([
         this.name = name || '';       
         this.def = def || {};       
         this.model = null;
+        this.parasitifer = null;
         this.popup = false;
         this.loaded = false;
         this.settings = null; 
@@ -64,13 +65,25 @@ define([
             * 用于替换表单title中的{name}占位符。
             */
             'def_name': 'name',
+
             /**
-             * 拉取表单配置数据的服务器端服务
+             * 拉取表单配置数据的服务器端动态地址。
              **/
             'dynamic_fetch_service': './svr/model_form_fetch.php',
+
+            /**
+             * 拉取表单配置数据的服务器端静态地址。
+             **/
             'static_fetch_service': '',
+
+            /**
+             * 拉取表单列表项的服务器端地址。
+             **/
+            'list_fetch_service': './svr/form_list_fetch.php',
+
             /*接收表单提交数据的服务器端服务*/
             'action_service': './svr/model_form_save.php',
+
             /*为上传提供后端服务的地址*/
             'upload_service': './svr/file_upload.php',
             'placeholder': '', 
@@ -109,6 +122,9 @@ define([
             this.settings = settings;
             if(this.settings.hasOwnProperty('id')){
                 this.model = settings.model;
+                if (!this.parasitifer) {
+                    this.parasitifer = this.model;
+                };
                 this.create();
                 this.dispatchEvent(ModelForm.Event.LOADED);
                 this.loaded = true;
@@ -121,7 +137,19 @@ define([
          * 从服务器加载表单对象的配置。
          */
         load: function(data){
-            $.getJSON(this.options['dynamic_fetch_service'], data, $.proxy(this.initialise, this));
+            var service = this.options['static_fetch_service'];
+            if (data.hasOwnProperty('parasitifer')) {
+                /*宿主模型的用途主要是在特定情况下获取模型字段的列表*/
+                this.parasitifer = data.parasitifer;
+            };
+            if (service) {
+                if (data.hasOwnProperty('name')) {
+                    $.getJSON(service + '/' + data['name'] + '.json', {}, $.proxy(this.initialise, this));
+                }
+            }else{
+                service = this.options['dynamic_fetch_service'];
+                $.getJSON(service, data, $.proxy(this.initialise, this));
+            }
         },
         
         /**
@@ -321,13 +349,13 @@ define([
          */
         createItem: function(container, settings, inline){
             var code = settings.code, 
-                validation = settings.validation,
+                validations = settings.validations,
                 name = this.getControlName(settings),
                 plug = plugs[code],
                 create;
             if(plug){
                 create = plug.create;
-                this.addValidation(name, validation);
+                this.addValidations(name, validations);
             }else{
                 create = function(){};
             }
@@ -344,7 +372,10 @@ define([
                 def = this.def[key];
             };
             var ext = { 
+                /*宿主模型的用途主要是在特定情况下获取模型字段的列表*/
+                'parasitifer': this.parasitifer,
                 'inline': inline, 
+                'list_fetch_service': this.options['list_fetch_service'],
                 'upload_service': this.options['upload_service'],
                 'createItem': $.proxy(this.createItem, this) 
             };
@@ -363,11 +394,11 @@ define([
         /**
          * 添加表单验证。
          * @param {String} name 表单对象的名称。
-         * @param {Object} validation 表单验证的配置数据。
+         * @param {Object} validations 表单验证的配置数据。
          */
-        addValidation: function(name, validation){
-            for(var i = 0; i < validation.length; i++){
-                var valid = validation[i],
+        addValidations: function(name, validations){
+            for(var i = 0; i < validations.length; i++){
+                var valid = validations[i],
                     method = valid['validation_method'],
                     message = valid['validation_message'],
                     param = valid['validation_param'];

@@ -1,0 +1,1 @@
+INSERT INTO [accounts_core_users] ([user_id], [user_name], [user_password], [last_logintime], [update_time], [create_time]) VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1377750701, 1377750701, 1377750701);

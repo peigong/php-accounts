@@ -98,6 +98,15 @@ class DUser extends DObject implements IDUser {
         } 
         return $result;    
     }
+
+    /**
+    * 导入数据库。
+    * @param $sql {Int} 数据定义的SQL文件。
+    * @param $db {String} 数据库。
+    */
+    public function import($sql, $db){
+        $this->initialize($db, $sql);
+    }
     /*- IDUser 接口实现 END -*/
     
     /*- 私有方法 START -*/

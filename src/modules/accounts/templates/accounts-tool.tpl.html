@@ -1,0 +1,41 @@
+{include file="common/header.tpl.html"}
+<style type="text/css">
+div.left { margin-left: 0px; }
+div.tool-ctrl{ clear: both; }
+</style>
+<section class="section">
+    <div class="container">
+        <h1>账户系统管理</h1>
+        <!-- 二级导航 -->
+        {include file="menu-accounts-sub.html"}
+        <div>{$Message}</div>
+        <div class="container">
+            <h2>备份和数据导入</h2>
+            <div class='left span6'>
+                <h3>备份数据库</h3>
+                <form class="form-inline" method="post">
+                    <input type='hidden' name='axn' value='backup' />
+                    <button type="submit" class="btn">备份账户系统的数据库</button>
+                </form>
+                <h3>导入数据</h3>
+                <form class="form-inline" method="post">
+                    <ul>
+                        {foreach $SQLs as $idx=>$SQL}
+                        <li>{$SQL['sql']} => {$SQL['db']}</li>
+                        {/foreach}
+                    </ul>
+                    <div class='tool-ctrl'>
+                        <input type='hidden' name='axn' value='import' />
+                        <button type="submit" class="btn">导入</button>
+                    </div>
+                </form>
+            </div>
+            <div class='span6'>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+require(['bootstrap']);
+</script>
+{include file="common/footer.tpl.html"}

@@ -144,4 +144,16 @@ interface IBRolePermission extends IInjectEnable, IModelListFetch, IRelationship
 	*/
 	function allocate($role, $permission);
 }
+
+/**
+ * 账户系统业务层工具类的接口。
+ */
+interface IBAccountsTool extends IInjectEnable{
+	/**
+	* 导入数据库。
+	* @param $sql {Int} 数据定义的SQL文件。
+	* @param $db {String} 数据库。
+	*/
+	function import($sql, $db);
+}
 ?>

@@ -10,5 +10,6 @@
         </properties>
     </bean>
     <bean id="accounts.pages.adminpage" class="AccountsAdminPage" path="inc/accountsadminpage.class.php" />
+    <bean id="accounts.pages.toolpage" class="AccountsToolPage" path="inc/accountstoolpage.class.php" />
 </config>
 

@@ -1,7 +1,7 @@
 # PHP版本的账户系统框架 #
 
 ## 项目依赖 ##
- * PHP版本的模型和模型表单引擎：git clone https://github.com/peigong/php-model-engine.git --branch 0.1.1 ./libs/php-model-engine-0.1.1
+ * PHP版本的模型和模型表单引擎：git clone https://github.com/peigong/php-model-engine.git --branch 0.1.2 ./libs/php-model-engine-0.1.2
 
 ## 使用说明 ##
 
@@ -21,6 +21,9 @@
  * modules/accounts：可移植的账户系统类库。具体使用需参考demo中的php配置。
 
 ## 版本的更新记录 ##
+
+### 0.1.1 ###
+ * 修订了数据库数据的导入、导出功能中的BUG。
 
 ### 0.1.0 ###
  * 账户系统工具页面增加了数据库数据的导入、导出功能。

@@ -3,45 +3,49 @@ require_once(dirname(__FILE__) . "/../config.inc.php");
 
 $message = '';
 $manager = $context->getBean('accounts.business.tool');
-$db_settings = array(
-	array(
-		'sql' => 'sql/sqlite/accounts_core.sql', 
-		'db' => 'core/accounts_core.sqlite'
-	)
+$settings = array(
+	'sql' => 'sql/sqlite', 
+	'db' => 'core/accounts_core.sqlite'
 );
+$db = AccountsData . $settings['db'];
 
 $axn = isset($_POST['axn']) ? $_POST['axn'] : '';
 switch ($axn) {
 	case 'import':
-		foreach ($db_settings as $idx => $settings) {
-			$sql = ROOT . $settings['sql'];
-			$db = AccountsData . $settings['db'];
-			if (file_exists($sql)) {
-				$manager->import($sql, $db);
-				$message .= $settings['sql'] . '成功导入了' . $settings['db'] . '！<br />';
-			}else{
-				$message .= '数据文件' . $settings['sql'] . '不存在！<br />';
-			}
+		$sql = ROOT . $settings['sql'];
+		if (file_exists($sql)) {
+			$manager->import('accounts_core', $sql, $db);
+			$message .= '成功导入了' . $settings['db'] . '！<br />';
+		}else{
+			$message .= '源数据文件目录' . $settings['sql'] . '不存在！<br />';
 		}
 		break;
 	case 'backup':
 		$time = time();
-		foreach ($db_settings as $idx => $settings) {
-			$db = AccountsData . $settings['db'];
-			if (file_exists($db)) {
-				rename($db, $db . ".$time");
-				$message .= '成功备份了' . $settings['db'] . '！<br />';
-			}else{
-				$message .= '数据库' . $settings['db'] . '不存在！<br />';
-			}
+		if (file_exists($db)) {
+			rename($db, $db . ".$time");
+			$message .= '成功备份了' . $settings['db'] . '！<br />';
+		}else{
+			$message .= '数据库' . $settings['db'] . '不存在！<br />';
 		}
 		break;
+	case 'export':
+		$tables = isset($_POST['table']) ? $_POST['table'] : array();
+		$tables = array_unique($tables);
+		$manager->export('accounts_core', $db, $tables);
+		$message = '成功导出了数据！';
+		break;
+}
+$tables = array();
+if (file_exists($db)) {
+	$tables = $manager->getTables($db);
 }
 
 $page = $context->getBean('accounts.pages.toolpage');
 $type = isset($_GET['type']) ? $_GET['type'] : 'tool';
 $page->type = $type;
-$page->assign('SQLs', $db_settings);
+$page->assign('SQL', $settings);
+$page->assign('Tables', $tables);
 $page->assign('Message', $message);
 $page->render();
 ?>

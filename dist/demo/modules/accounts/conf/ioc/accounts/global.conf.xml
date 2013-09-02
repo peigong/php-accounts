@@ -7,6 +7,7 @@
         <properties>
             <property name="dao" ref="accounts.global.dao" />
             <property name="route" ref="accounts.global.db.route" />
+            <property name="util" ref="accounts.global.dbutil" />
         </properties>
     </bean>
     <bean id="accounts.pages.adminpage" class="AccountsAdminPage" path="inc/accountsadminpage.class.php" />

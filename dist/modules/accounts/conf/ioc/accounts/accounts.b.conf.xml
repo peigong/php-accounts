@@ -48,7 +48,7 @@
     </bean>
     <bean id="accounts.business.tool" class="BAccountsTool" path="inc/business/b.accountstool.class.php"  parent="accounts.core.b.object">
         <properties>
-            <property name="dao" ref="accounts.dataaccess.user" />
+            <property name="util" ref="modelengine.global.modeldbutil" />
         </properties>
     </bean>
 </config>

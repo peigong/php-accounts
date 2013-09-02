@@ -149,11 +149,27 @@ interface IBRolePermission extends IInjectEnable, IModelListFetch, IRelationship
  * 账户系统业务层工具类的接口。
  */
 interface IBAccountsTool extends IInjectEnable{
+    /**
+    * 导入数据库的数据。
+    * @param $name {String} 数据库名称。
+    * @param $sql {String} 存储数据库SQL的目录。
+    * @param $db {String} 数据库。
+    */
+	function import($name, $sql, $db);
+
+    /**
+    * 导出数据库的数据。
+    * @param $name {String} 数据库名称。
+    * @param $db {String} 数据库。
+    * @param $tables {Array} 需要导出的数据表。
+    * @return {String} 导出的SQL。
+    */
+    function export($name, $db, $tables);
+
 	/**
-	* 导入数据库。
-	* @param $sql {Int} 数据定义的SQL文件。
+	* 获取数据库的数据表列表。
 	* @param $db {String} 数据库。
 	*/
-	function import($sql, $db);
+	function getTables($db);
 }
 ?>

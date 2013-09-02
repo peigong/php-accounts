@@ -62,13 +62,6 @@ interface IDUser extends IInjectEnable{
     * @return {Int} 如果可以通过验证，返回用户ID；如果不能通过验证，返回-1。
     */
     function validation($name, $password);
-    
-    /**
-    * 导入数据库。
-    * @param $sql {Int} 数据定义的SQL文件。
-    * @param $db {String} 数据库。
-    */
-    function import($sql, $db);
 }
 
 /**

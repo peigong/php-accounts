@@ -21,12 +21,12 @@ module.exports = function(grunt) {
           {expand: true, "cwd": "src/demo", src: ["**"], dest: "dist/demo"},
           {expand: true, 'cwd': 'src/modules/accounts', src: ['**'], dest: 'dist/modules/accounts'},
           {expand: true, 'cwd': 'src/modules/accounts', src: ['**'], dest: 'dist/demo/modules/accounts'},
-          
-          {expand: true, cwd: "libs/php-model-engine-0.1.0/dist/dependencies", src: ["**"], dest: "dist/demo"},
-          {expand: true, cwd: "libs/php-model-engine-0.1.0/dist/model-engine", src: ["**"], dest: "dist/demo/modules/model-engine"},
 
-          {expand: true, cwd: "libs/php-model-engine-0.1.0/dist/dependencies", src: ["**"], dest: "dist/dependencies"},
-          {expand: true, cwd: "libs/php-model-engine-0.1.0/dist/model-engine", src: ["**"], dest: "dist/dependencies/modules/model-engine"},
+          {expand: true, cwd: "libs/php-model-engine-0.1.1/dist/dependencies", src: ["**"], dest: "dist/demo"},
+          {expand: true, cwd: "libs/php-model-engine-0.1.1/dist/model-engine", src: ["**"], dest: "dist/demo/modules/model-engine"},
+
+          {expand: true, cwd: "libs/php-model-engine-0.1.1/dist/dependencies", src: ["**"], dest: "dist/dependencies"},
+          {expand: true, cwd: "libs/php-model-engine-0.1.1/dist/model-engine", src: ["**"], dest: "dist/dependencies/modules/model-engine"}
         ]
       }
     }

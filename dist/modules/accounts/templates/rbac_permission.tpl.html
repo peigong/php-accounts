@@ -27,7 +27,7 @@ require([
             'name': 'permission_name', 
             'service' : './svr/model_list_fetch.php',
             
-            'form': { 'static_fetch_service': '{$StaticHost}/forms/' + 'permission' },
+            'form': { 'fetch_service': '{$VirtualModelEngineRoot}/svr/model_form_fetch.php' },
 
             'add': {
                 'handler': '#permission_create_handler', 

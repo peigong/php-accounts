@@ -40,7 +40,7 @@ require([
             'name': 'user_name', 
             'service' : './svr/model_list_fetch.php',
 
-            'form': { 'static_fetch_service': '{$StaticHost}/forms/' + 'user' },
+            'form': { 'fetch_service': '{$VirtualModelEngineRoot}/svr/model_form_fetch.php' },
 
             'add': {
                 'handler': '#user_create_handler', 

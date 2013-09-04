@@ -43,7 +43,9 @@ class BAccountsTool extends BObject implements IBAccountsTool{
     * @param $db {String} 数据库。
     */
     public function import($name, $sql, $db){
-        $this->util->import($this->module, $name, $sql, $db);
+        $path = implode('/', array($sql, $this->module, $name));
+        $this->util->import($path, $db);
+        $this->util->import_mmd($this->module, $name, $sql, $db);
     }
 
     /**
@@ -54,7 +56,8 @@ class BAccountsTool extends BObject implements IBAccountsTool{
     * @return {String} 导出的SQL。
     */
     public function export($name, $db, $tables){
-        $this->util->export($this->module, $this->tmp, $name, $db, $tables);
+        $this->util->export_db($this->module, $this->tmp, $name, $db, $tables, array());
+        $this->util->export_mmd($this->module, $this->tmp, $name, $tables);
     }
 
     /**

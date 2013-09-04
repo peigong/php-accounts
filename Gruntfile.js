@@ -22,11 +22,11 @@ module.exports = function(grunt) {
           {expand: true, 'cwd': 'src/modules/accounts', src: ['**'], dest: 'dist/modules/accounts'},
           {expand: true, 'cwd': 'src/modules/accounts', src: ['**'], dest: 'dist/demo/modules/accounts'},
 
-          {expand: true, cwd: "libs/php-model-engine-0.1.3/dist/dependencies", src: ["**"], dest: "dist/demo"},
-          {expand: true, cwd: "libs/php-model-engine-0.1.3/dist/model-engine", src: ["**"], dest: "dist/demo/modules/model-engine"},
+          {expand: true, cwd: "libs/php-model-engine-0.1.4/dist/dependencies", src: ["**"], dest: "dist/demo"},
+          {expand: true, cwd: "libs/php-model-engine-0.1.4/dist/model-engine", src: ["**"], dest: "dist/demo/modules/model-engine"},
 
-          {expand: true, cwd: "libs/php-model-engine-0.1.3/dist/dependencies", src: ["**"], dest: "dist/dependencies"},
-          {expand: true, cwd: "libs/php-model-engine-0.1.3/dist/model-engine", src: ["**"], dest: "dist/dependencies/modules/model-engine"}
+          {expand: true, cwd: "libs/php-model-engine-0.1.4/dist/dependencies", src: ["**"], dest: "dist/dependencies"},
+          {expand: true, cwd: "libs/php-model-engine-0.1.4/dist/model-engine", src: ["**"], dest: "dist/dependencies/modules/model-engine"}
         ]
       }
     }
